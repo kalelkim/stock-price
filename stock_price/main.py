@@ -33,11 +33,11 @@ def run(
     now = now or datetime.now(KST)
     run_date = now.date()
 
+    tickers = load_watchlist(watchlist_path)
+
     if reader is None:
         start = (run_date - timedelta(days=LOOKBACK_DAYS)).isoformat()
         reader = default_reader(start)
-
-    tickers = load_watchlist(watchlist_path)
 
     records: list[dict] = []
     errors: list[dict] = []
