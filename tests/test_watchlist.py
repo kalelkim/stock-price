@@ -62,3 +62,19 @@ def test_duplicate_symbol_raises(tmp_path):
     ]})
     with pytest.raises(WatchlistError):
         load_watchlist(p)
+
+
+def test_invalid_json_raises(tmp_path):
+    p = tmp_path / "tickers.json"
+    p.write_text("{not valid json", encoding="utf-8")
+    with pytest.raises(WatchlistError):
+        load_watchlist(p)
+
+
+def test_whitespace_padded_duplicate_raises(tmp_path):
+    p = _write(tmp_path, {"tickers": [
+        {"symbol": "AAPL", "name": "Apple"},
+        {"symbol": "AAPL ", "name": "Apple dup"},
+    ]})
+    with pytest.raises(WatchlistError):
+        load_watchlist(p)

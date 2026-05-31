@@ -20,7 +20,10 @@ class Ticker:
 
 def load_watchlist(path: str | Path) -> list[Ticker]:
     """tickers.json을 읽어 Ticker 리스트로 반환. 형식 오류 시 WatchlistError."""
-    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    try:
+        raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        raise WatchlistError(f"JSON 파싱 실패: {e}") from e
 
     if not isinstance(raw, dict) or "tickers" not in raw:
         raise WatchlistError("최상위에 'tickers' 키가 없습니다.")
