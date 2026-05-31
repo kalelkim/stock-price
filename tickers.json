@@ -1,8 +1,9 @@
 {
   "tickers": [
-    { "symbol": "005930", "name": "삼성전자" },
-    { "symbol": "069500", "name": "KODEX 200" },
-    { "symbol": "AAPL",   "name": "Apple" },
-    { "symbol": "SPY",    "name": "SPDR S&P 500 ETF" }
+    { "symbol": "0051G0", "name": "SOL 미국원자력SMR" },
+    { "symbol": "487240", "name": "KODEX AI전력핵심설비" },
+    { "symbol": "237350",   "name": "KODEX 코스피100" },
+    { "symbol": "ETN",    "name": "이턴 코퍼레이션" },
+    { "symbol": "0190Y0", "name": "TIGER 구글밸류체인"}
   ]
 }
