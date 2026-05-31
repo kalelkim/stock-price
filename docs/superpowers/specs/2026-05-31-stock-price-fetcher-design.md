@@ -19,7 +19,7 @@
 | 저장 목적 | **시계열 히스토리 누적** | 실행마다 기록을 쌓음 |
 | 데이터 출처 | **FinanceDataReader** | 무료·API키 불필요·국내외 커버 |
 | 종목 관리 | **JSON 설정 파일**(`tickers.json`) | 코드 수정 없이 편집 |
-| 실행 주기 | **평일 1회, 18:30 KST** | cron `30 9 * * 1-5` (UTC) |
+| 실행 주기 | **평일 1회, 08:00 KST** | cron `0 23 * * 0-4` (UTC, KST 전일 23:00) |
 | 파일 구조 | **날짜별 파일**(`data/YYYY-MM-DD.json`) | 실행마다 새 파일 1개 |
 | 프로그램 구조 | **모듈 분리 + 견고한 수집** | 순수 로직과 네트워크 분리 |
 | 출력 필드 | 기본 스키마 그대로(§6) | `volume` 포함 |
@@ -28,7 +28,7 @@
 ## 3. 아키텍처 & 데이터 흐름
 
 ```
-GitHub Actions (평일 18:30 KST = cron "30 9 * * 1-5", UTC 기준)
+GitHub Actions (평일 08:00 KST = cron "0 23 * * 0-4", UTC 기준 · KST 전일 23:00)
         │
         ▼
 [main] 조율
@@ -102,7 +102,7 @@ git add data/ → (변경 있을 때만) commit & push  ← 기본 GITHUB_TOKEN 
 ```json
 {
   "run_date": "2026-05-31",
-  "fetched_at": "2026-05-31T09:30:12Z",
+  "fetched_at": "2026-05-30T23:00:12Z",
   "count": 4,
   "prices": [
     {
@@ -125,7 +125,7 @@ git add data/ → (변경 있을 때만) commit & push  ← 기본 GITHUB_TOKEN 
 ```
 
 - `run_date`(실행 날짜, KST)와 `price_date`(실제 종가의 거래일)를 **구분**한다.
-- 미국 종목을 KST 저녁에 조회하면 `price_date`는 직전 미국 거래일이 된다(정상).
+- 08:00 KST 실행 시점엔 KRX 개장(09:00) 전이라, 국내·해외 모두 **직전 거래일** 종가가 기록된다(예: 화요일 아침 실행 → 국내·미국 모두 월요일 종가). run_date(KST)와 price_date는 보통 하루 차이가 난다.
 - `change_pct`는 백분율(단위 %), 소수 둘째 자리 반올림.
 - 조회 실패 종목은 `prices`에서 제외하고 `errors`에 사유와 함께 기록한다.
 
@@ -152,7 +152,7 @@ git add data/ → (변경 있을 때만) commit & push  ← 기본 GITHUB_TOKEN 
 
 ## 10. GitHub Actions 워크플로 (`.github/workflows/fetch-prices.yml`)
 
-- **트리거**: `schedule: cron "30 9 * * 1-5"`(평일 18:30 KST) + `workflow_dispatch`(수동 버튼).
+- **트리거**: `schedule: cron "0 23 * * 0-4"`(평일 08:00 KST) + `workflow_dispatch`(수동 버튼). ※ 08:00 KST는 UTC로 **전일 23:00**이라 요일이 한 칸 당겨진다(KST 월~금 = UTC 일~목 → `0-4`).
 - **권한**: `permissions: contents: write` (기본 `GITHUB_TOKEN`으로 push — 별도 PAT·Secret 불필요).
 - **단계**: checkout → setup-python → `pip install -r requirements.txt` → `python -m stock_price.main` → 변경 있으면 봇 계정(`github-actions[bot]`)으로 commit & push.
 - **참고**: GitHub cron은 부하 시 수 분 지연될 수 있으나 일별 종가엔 무방. 한국은 서머타임이 없어 시각 보정 불필요.
@@ -163,7 +163,7 @@ git add data/ → (변경 있을 때만) commit & push  ← 기본 GITHUB_TOKEN 
 name: fetch-prices
 on:
   schedule:
-    - cron: "30 9 * * 1-5"   # 18:30 KST (UTC+9)
+    - cron: "0 23 * * 0-4"   # 08:00 KST (UTC 전일 23:00; KST 월~금 = UTC 일~목)
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -192,7 +192,7 @@ jobs:
 
 1. GitHub에 저장소를 만들고 이 코드를 push 한다(`git remote add origin … && git push -u origin main`).
 2. **Settings → Actions → General → Workflow permissions**에서 **"Read and write permissions"**가 켜져 있어야 한다. (일부 저장소는 기본이 읽기 전용이라 이게 꺼져 있으면 워크플로의 `contents: write`만으로는 push가 거부될 수 있다.)
-3. 이후 평일 18:30 KST마다 자동 실행되며, GitHub Actions 화면에서 **Run workflow** 버튼으로 수동 실행도 가능하다.
+3. 이후 평일 08:00 KST마다 자동 실행되며, GitHub Actions 화면에서 **Run workflow** 버튼으로 수동 실행도 가능하다.
 
 ## 11. 프로젝트 구조 & 산출물
 
