@@ -1,6 +1,6 @@
 {
   "run_date": "2026-05-31",
-  "fetched_at": "2026-05-31T06:26:43Z",
+  "fetched_at": "2026-05-31T06:29:41Z",
   "count": 4,
   "prices": [
     {
@@ -33,8 +33,8 @@
       "market": "US",
       "currency": "USD",
       "price_date": "2026-05-29",
-      "close": 312.05999755859375,
-      "previous_close": 312.510009765625,
+      "close": 312.06,
+      "previous_close": 312.51,
       "change": -0.45,
       "change_pct": -0.14,
       "volume": 69982800
@@ -45,8 +45,8 @@
       "market": "US",
       "currency": "USD",
       "price_date": "2026-05-29",
-      "close": 756.47998046875,
-      "previous_close": 754.5999755859375,
+      "close": 756.48,
+      "previous_close": 754.6,
       "change": 1.88,
       "change_pct": 0.25,
       "volume": 54976100

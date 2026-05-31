@@ -90,3 +90,12 @@ def test_build_record_nan_volume_becomes_none():
 
 def test_non_six_digit_numeric_is_us_usd():
     assert infer_market_currency("7203") == ("US", "USD")
+
+
+def test_build_record_rounds_float32_noise():
+    t = Ticker(symbol="AAPL", name="Apple")
+    df = _df([300.0, 312.05999755859375], dates=["2026-05-28", "2026-05-29"])
+    rec = build_record(t, df)
+    assert rec["close"] == 312.06
+    assert rec["previous_close"] == 300.0
+    assert rec["change"] == 12.06

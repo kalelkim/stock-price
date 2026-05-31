@@ -23,7 +23,7 @@ def build_record(ticker: Ticker, df: pd.DataFrame) -> dict:
     market = ticker.market or inferred_market
     currency = ticker.currency or inferred_currency
 
-    close = float(df["Close"].iloc[-1])
+    close = round(float(df["Close"].iloc[-1]), 4)
     price_date = pd.Timestamp(df.index[-1]).date().isoformat()
 
     volume = None
@@ -33,7 +33,7 @@ def build_record(ticker: Ticker, df: pd.DataFrame) -> dict:
             volume = int(v)
 
     if len(df) >= 2:
-        previous_close = float(df["Close"].iloc[-2])
+        previous_close = round(float(df["Close"].iloc[-2]), 4)
         change = round(close - previous_close, 4)
         if previous_close != 0.0:
             change_pct = round((close - previous_close) / previous_close * 100, 2)
