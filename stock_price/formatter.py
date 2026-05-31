@@ -35,7 +35,10 @@ def build_record(ticker: Ticker, df: pd.DataFrame) -> dict:
     if len(df) >= 2:
         previous_close = float(df["Close"].iloc[-2])
         change = round(close - previous_close, 4)
-        change_pct = round((close - previous_close) / previous_close * 100, 2)
+        if previous_close != 0.0:
+            change_pct = round((close - previous_close) / previous_close * 100, 2)
+        else:
+            change_pct = None
     else:
         previous_close = None
         change = None

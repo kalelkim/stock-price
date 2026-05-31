@@ -70,3 +70,23 @@ def test_build_record_respects_overrides():
     rec = build_record(t, _df([100.0, 110.0]))
     assert rec["currency"] == "EUR"
     assert rec["market"] == "XETRA"
+
+
+def test_build_record_zero_previous_close_change_pct_none():
+    t = Ticker(symbol="AAPL", name="Apple")
+    df = _df([0.0, 110.0], dates=["2026-05-28", "2026-05-29"])
+    rec = build_record(t, df)
+    assert rec["previous_close"] == 0.0
+    assert rec["change"] == 110.0
+    assert rec["change_pct"] is None
+
+
+def test_build_record_nan_volume_becomes_none():
+    t = Ticker(symbol="AAPL", name="Apple")
+    df = _df([100.0, 110.0], volumes=[1000.0, float("nan")])
+    rec = build_record(t, df)
+    assert rec["volume"] is None
+
+
+def test_non_six_digit_numeric_is_us_usd():
+    assert infer_market_currency("7203") == ("US", "USD")
