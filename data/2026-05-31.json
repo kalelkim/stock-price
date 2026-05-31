@@ -1,0 +1,56 @@
+{
+  "run_date": "2026-05-31",
+  "fetched_at": "2026-05-31T06:26:43Z",
+  "count": 4,
+  "prices": [
+    {
+      "symbol": "005930",
+      "name": "삼성전자",
+      "market": "KRX",
+      "currency": "KRW",
+      "price_date": "2026-05-29",
+      "close": 317000.0,
+      "previous_close": 299500.0,
+      "change": 17500.0,
+      "change_pct": 5.84,
+      "volume": 32804208
+    },
+    {
+      "symbol": "069500",
+      "name": "KODEX 200",
+      "market": "KRX",
+      "currency": "KRW",
+      "price_date": "2026-05-29",
+      "close": 134815.0,
+      "previous_close": 129990.0,
+      "change": 4825.0,
+      "change_pct": 3.71,
+      "volume": 17383318
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "market": "US",
+      "currency": "USD",
+      "price_date": "2026-05-29",
+      "close": 312.05999755859375,
+      "previous_close": 312.510009765625,
+      "change": -0.45,
+      "change_pct": -0.14,
+      "volume": 69982800
+    },
+    {
+      "symbol": "SPY",
+      "name": "SPDR S&P 500 ETF",
+      "market": "US",
+      "currency": "USD",
+      "price_date": "2026-05-29",
+      "close": 756.47998046875,
+      "previous_close": 754.5999755859375,
+      "change": 1.88,
+      "change_pct": 0.25,
+      "volume": 54976100
+    }
+  ],
+  "errors": []
+}
