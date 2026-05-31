@@ -186,6 +186,14 @@ jobs:
           git push
 ```
 
+### 10.1 초기 설정 (1회)
+
+워크플로가 자동 push 하려면 한 번만 해두면 되는 설정:
+
+1. GitHub에 저장소를 만들고 이 코드를 push 한다(`git remote add origin … && git push -u origin main`).
+2. **Settings → Actions → General → Workflow permissions**에서 **"Read and write permissions"**가 켜져 있어야 한다. (일부 저장소는 기본이 읽기 전용이라 이게 꺼져 있으면 워크플로의 `contents: write`만으로는 push가 거부될 수 있다.)
+3. 이후 평일 18:30 KST마다 자동 실행되며, GitHub Actions 화면에서 **Run workflow** 버튼으로 수동 실행도 가능하다.
+
 ## 11. 프로젝트 구조 & 산출물
 
 ```
