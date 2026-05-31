@@ -26,6 +26,17 @@ def test_alpha_symbol_is_us_usd():
     assert infer_market_currency("AAPL") == ("US", "USD")
 
 
+def test_korean_six_char_with_letter_is_krx_krw():
+    # 신형우선주·일부 ETF는 6자리에 알파벳이 섞인다 (예: 0051G0, 0190Y0)
+    assert infer_market_currency("0051G0") == ("KRX", "KRW")
+    assert infer_market_currency("0190Y0") == ("KRX", "KRW")
+
+
+def test_us_alpha_ticker_not_six_digit_is_us_usd():
+    # ETN(이턴 코퍼레이션)처럼 알파벳 티커는 US/USD로 유지되어야 한다
+    assert infer_market_currency("ETN") == ("US", "USD")
+
+
 def test_build_record_basic():
     t = Ticker(symbol="005930", name="삼성전자")
     df = _df([74000.0, 73500.0], volumes=[111, 12345678],

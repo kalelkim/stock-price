@@ -7,8 +7,14 @@ from stock_price.watchlist import Ticker
 
 
 def infer_market_currency(symbol: str) -> tuple[str, str]:
-    """심볼로 시장·통화 추론. 6자리 숫자 → KRX/KRW, 그 외 → US/USD."""
-    if symbol.isdigit() and len(symbol) == 6:
+    """심볼로 시장·통화 추론.
+
+    KRX 종목코드는 6자리 영숫자다. 보통 6자리 숫자(예: 005930)지만
+    신형우선주·일부 ETF는 알파벳이 섞인다(예: 0051G0, 0190Y0).
+    따라서 '6자리이고 숫자를 하나 이상 포함'하면 KRX/KRW로 본다.
+    그 외(대개 알파벳 티커, 예: AAPL, ETN)는 US/USD.
+    """
+    if len(symbol) == 6 and symbol.isalnum() and any(ch.isdigit() for ch in symbol):
         return ("KRX", "KRW")
     return ("US", "USD")
 
