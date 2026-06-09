@@ -1,0 +1,68 @@
+{
+  "run_date": "2026-06-09",
+  "fetched_at": "2026-06-09T00:00:05Z",
+  "count": 5,
+  "prices": [
+    {
+      "symbol": "0051G0",
+      "name": "SOL 미국원자력SMR",
+      "market": "KRX",
+      "currency": "KRW",
+      "price_date": "2026-06-08",
+      "close": 15345.0,
+      "previous_close": 16605.0,
+      "change": -1260.0,
+      "change_pct": -7.59,
+      "volume": 115209
+    },
+    {
+      "symbol": "487240",
+      "name": "KODEX AI전력핵심설비",
+      "market": "KRX",
+      "currency": "KRW",
+      "price_date": "2026-06-08",
+      "close": 40415.0,
+      "previous_close": 43355.0,
+      "change": -2940.0,
+      "change_pct": -6.78,
+      "volume": 4241220
+    },
+    {
+      "symbol": "237350",
+      "name": "KODEX 코스피100",
+      "market": "KRX",
+      "currency": "KRW",
+      "price_date": "2026-06-08",
+      "close": 95630.0,
+      "previous_close": 104800.0,
+      "change": -9170.0,
+      "change_pct": -8.75,
+      "volume": 1831038
+    },
+    {
+      "symbol": "ETN",
+      "name": "이턴 코퍼레이션",
+      "market": "US",
+      "currency": "USD",
+      "price_date": "2026-06-08",
+      "close": 403.14,
+      "previous_close": 395.94,
+      "change": 7.2,
+      "change_pct": 1.82,
+      "volume": 2100448
+    },
+    {
+      "symbol": "0190Y0",
+      "name": "TIGER 구글밸류체인",
+      "market": "KRX",
+      "currency": "KRW",
+      "price_date": "2026-06-09",
+      "close": 10440.0,
+      "previous_close": 10440.0,
+      "change": 0.0,
+      "change_pct": 0.0,
+      "volume": 0
+    }
+  ],
+  "errors": []
+}
